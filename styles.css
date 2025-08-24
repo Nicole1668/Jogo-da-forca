@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Nosifer&display=swap');
+
+body {
+    font-family: 'Nosifer', cursive;
+    text-align: center;
+    margin: 50px;
+    background-color: #ce8db7;
+}
+
+
+    #exibicao-palavra {
+        font-size: 3em;
+        margin-bottom: 30px;
+    }
+
+    #letras-chutadas {
+        font-size: 2em;
+        color: rgb(255, 2, 95);
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    #entrada-letra {
+        font-size: 1em;
+        padding: 5px 10px;
+    }
+
+    #btn-chutar {
+      
+        padding: 10px 20px;
+        font-size: 1em;
+        margin-left: 5px;
+        cursor: pointer;
+        border: none;
+        border-radius: 12px;
+        background-color: #db57ac;
+    }
+
+    #entrada-letra {
+        font-size: 1.2em;
+        padding: 10px 15px;
+        border: 2px solid #551644;
+        border-radius: 12px;
+        outline: none;
+        background-color: #fff8e1;
+    }
+    /* Modal e overlay */
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(5px);
+        display: none; /* escondido inicialmente */
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    #modal {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        text-align: center;
+        max-width: 400px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        animation: aparecer 0.3s ease;
+    }
+
+    #modal p {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    #reiniciar {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 1em;
+    }
+
+    #reiniciar:hover {
+        background-color: #3c823e;
+        cursor: pointer;
+    }
+
+    @keyframes aparecer {
+        from { transform: scale(0.8); opacity: 0; }
+        to   { transform: scale(1); opacity: 1; }
+    }

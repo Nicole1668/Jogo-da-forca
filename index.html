@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo da Forca</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+   <h1>🌟​Jogo da Forca🌟​</h1>
+  <img id="imagem" src="img/forca0.png" alt="Forca">
+  <div id="exibicao-palavra"></div>
+
+  <input type="text" id="entrada-letra" placeholder="Chute uma letra" maxlength="1">
+  <button id="btn-chutar" onclick="chutarLetra()">​Chutar</button>
+
+  <h2>​💔​Letras Chutadas:</h2>
+  <div id="letras-chutadas"></div>
+
+
+  <!-- Modal de encerramento -->
+  <div id="overlay">
+    <div id="modal">
+      <p id="mensagem"></p>
+      <button id="reiniciar" onclick="iniciarJogo()">Recomeçar</button>
+    </div>
+  </div>
+
+  <script>
+    const listaPalavras = [
+      "abacaxi","avião","bicicleta","cachorro","elefante",
+      "janela","computador","violão","praia","carro",
+      "bola","girafa","pipoca","livro","caderno",
+      "escola","professor","coração","chuva","futebol",
+      "borboleta","floresta","travesseiro","telefone","caneta",
+      "martelo","mochila","relógio","sorvete","camiseta",
+      "dinossauro","estrela","planeta","galáxia","universo",
+      "montanha","rio","oceano","peixe","passarinho",
+      "cavalo","tigre","macaco","leão","urso",
+      "zebra","coelho","fada","dragão","bruxa"
+    ];
+
+    let palavraEscolhida;
+    let exibicaoPalavra;
+    let letrasChutadas;
+    let tentativasRestantes;
+    let numeroErros;
+
+    function iniciarJogo() {
+      document.getElementById("overlay").style.display = "none";
+      document.getElementById("entrada-letra").disabled = false;
+      document.getElementById("btn-chutar").disabled = false;
+
+      palavraEscolhida = listaPalavras[Math.floor(Math.random() * listaPalavras.length)];
+      exibicaoPalavra = Array(palavraEscolhida.length).fill("_");
+      letrasChutadas = [];
+      tentativasRestantes = 7;
+      numeroErros = 0;
+
+      atualizarExibicao();
+    }
+
+    function atualizarExibicao() {
+      document.getElementById("exibicao-palavra").innerText = exibicaoPalavra.join(" ");
+      document.getElementById("letras-chutadas").innerText = letrasChutadas.join(", ");
+      document.getElementById("imagem").src = `img/forca${numeroErros}.png`;
+
+      if (tentativasRestantes === 0) {
+        encerrarJogo(`Você Perdeu!! A palavra era: ${palavraEscolhida}`);
+      } else if (!exibicaoPalavra.includes("_")) {
+        encerrarJogo("Parabéns!! Você Ganhou!!");
+      }
+    }
+
+    function chutarLetra() {
+      const entradaLetra = document.getElementById("entrada-letra");
+      const letra = entradaLetra.value.toLowerCase();
+      entradaLetra.value = "";
+
+      if (!letra.match(/[a-zà-ùç]/i)) {
+        alert("Por favor, insira uma letra válida.");
+        return;
+      }
+
+      if (letrasChutadas.includes(letra)) {
+        alert("Você já chutou essa letra. Tente outra.");
+        return;
+      }
+
+      letrasChutadas.push(letra);
+
+      if (palavraEscolhida.includes(letra)) {
+        for (let i = 0; i < palavraEscolhida.length; i++) {
+          if (palavraEscolhida[i] === letra) {
+            exibicaoPalavra[i] = letra;
+          }
+        }
+      } else {
+        tentativasRestantes--;
+        numeroErros++;
+      }
+
+      atualizarExibicao();
+    }
+
+    function encerrarJogo(mensagem) {
+      document.getElementById("mensagem").innerText = mensagem;
+      document.getElementById("overlay").style.display = "flex";
+      document.getElementById("entrada-letra").disabled = true;
+      document.getElementById("btn-chutar").disabled = true;
+    }
+
+    // Inicia o jogo ao carregar
+    window.addEventListener("load", iniciarJogo);
+  </script>
+</body>
+</html>
