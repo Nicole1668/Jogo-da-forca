@@ -90,7 +90,15 @@ body {
         cursor: pointer;
     }
 
+    /* Responsividade */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.2em;
+      }
+    }
+
     @keyframes aparecer {
         from { transform: scale(0.8); opacity: 0; }
         to   { transform: scale(1); opacity: 1; }
+
     }
